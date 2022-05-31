@@ -3,6 +3,6 @@ const { getTemperamentsFromDB } = require('../controllers/temperamentControllers
 
 
 const router = Router();
-router.use('/', getTemperamentsFromDB)
+router.use('/temperament', getTemperamentsFromDB)
 
 module.exports = router;

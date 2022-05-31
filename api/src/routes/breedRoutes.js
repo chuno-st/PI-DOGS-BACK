@@ -1,10 +1,10 @@
 const {Router} = require('express');
-const { getAllBreeds } = require('../controllers/breedControllers');
+const { getById, createBreed, getBreeds } = require('../controllers/breedControllers');
 
 
 const router = Router();
-router.use('/', getAllBreeds)
-
-
+router.use('/dogs/:id', getById)
+router.use('/dogs', getBreeds)
+router.use('/dog', createBreed)
 
 module.exports = router;
