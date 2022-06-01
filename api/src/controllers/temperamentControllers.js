@@ -1,33 +1,58 @@
 require('dotenv').config();
-const { Temperament } = require('../db')
+const { Temperament } = require('../db');
 const axios = require('axios');
-const {
-    API_KEY, GET_BREEDS,
-} = process.env;
+const { Op } = require('sequelize');
+const { GET_BREEDS } = process.env;
 
+// --------------- << CARGA INICIAL DE LA BASE DE DATOS >> ---------------
 
 async function getAllTemperaments() {
     try {
-        let temperaments = (await axios(`${GET_BREEDS}`)).data.map(e => ({ id: e.id, name: e.temperament }));
-        temperaments.forEach(element => {(element.name?.split(/\s*;\s*/))});
-        // temperaments.forEach(element => {(element.id  )});
-        
-        // temperaments.forEach(element => {(Object.create =)})
-        
 
-        console.log(temperaments);
-        await Temperament.bulkCreate(temperaments)
+        let temperamentsApi = (await axios(`${GET_BREEDS}`)).data.map(e => (e.temperament));
+        // console.log('-----------------------------------------------------------',temperamentssss);
+
+        let tempJoin = temperamentsApi.join()
+        // console.log('-----------------------------------------------------------',temp)
+
+        let tempSplit = tempJoin.split(/\s*,\s*/);
+        // console.log('-----------------------------------------------------------',tempSplit)
+
+        let tempSet = Array.from(new Set(tempSplit))
+        // console.log('-----------------------------------------------------------',tempE)
+
+        let tempObj = {}
+        Array.prototype.push.apply(tempObj, tempSet)
+        delete tempObj.length
+        // console.log('-----------------------------------------------------------',temper)
+
+        let tempEntries = Object.entries(tempObj);
+        // console.log('-----------------------------------------------------------',temperrrr)
+
+        let allTemperaments = tempEntries.map(e => ({ id: e[0], name: e[1] }))
+        // console.log('-----------------------------------------------------------',allTemperaments)
+
+        await Temperament.bulkCreate(allTemperaments);
         console.log('Temperamentos cargados en DB correctamente')
+
     } catch (error) {
-        console.log(error);
+        console.log(error)
     }
-}
+};
 
 // async function getTemperamentsFromDB(req, res, next) {
-//     let allTemperaments = await Temperament.findAll()
-//     res.send(allTemperaments)
+//     // let temperaments = await Temperament.findAll()
+//     //     let allTemperaments = await Temperament.findAll()
+//     let temperaments = await Temperament.findAll({
+
+//         where: Temperament.sequelize.literal(`SELECT id, unnest(string_to_array(name, ', ')) AS name FROM temperaments`)
+
+//     })
+//     res.send(temperaments)
 
 // }
+
+// --------------- << GET - a '/temperaments' >> ---------------
 
 function getTemperamentsFromDB(req, res, next) {
     Temperament.findAll()
