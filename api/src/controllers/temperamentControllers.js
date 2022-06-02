@@ -1,7 +1,6 @@
 require('dotenv').config();
 const { Temperament } = require('../db');
 const axios = require('axios');
-const { Op } = require('sequelize');
 const { GET_BREEDS } = process.env;
 
 // --------------- << CARGA INICIAL DE LA BASE DE DATOS >> ---------------
@@ -29,7 +28,7 @@ async function getAllTemperaments() {
         let tempEntries = Object.entries(tempObj);
         // console.log('-----------------------------------------------------------',temperrrr)
 
-        let allTemperaments = tempEntries.map(e => ({ id: e[0], name: e[1] }))
+        let allTemperaments = tempEntries.map(e => ({ ID: e[0], name: e[1] }))
         // console.log('-----------------------------------------------------------',allTemperaments)
 
         await Temperament.bulkCreate(allTemperaments);
@@ -40,27 +39,21 @@ async function getAllTemperaments() {
     }
 };
 
-// async function getTemperamentsFromDB(req, res, next) {
-//     // let temperaments = await Temperament.findAll()
-//     //     let allTemperaments = await Temperament.findAll()
-//     let temperaments = await Temperament.findAll({
-
-//         where: Temperament.sequelize.literal(`SELECT id, unnest(string_to_array(name, ', ')) AS name FROM temperaments`)
-
-//     })
-//     res.send(temperaments)
-
-// }
-
 // --------------- << GET - a '/temperaments' >> ---------------
 
-function getTemperamentsFromDB(req, res, next) {
-    Temperament.findAll()
-        .then(temperaments => res.send(temperaments))
-        .catch(e => next(e))
-}
+async function getTemperamentsFromDB(req, res, next) {
+    try {
+        let dbTemperaments = await Temperament.findAll()
+        let allTemperaments = dbTemperaments.map(e => ({ Nombre: e.name }))
+
+        res.send(allTemperaments)
+        console.log('--------allTemperaments--------', allTemperaments)
+    } catch (error) {
+        next(error)
+    }
+};
 
 module.exports = {
     getAllTemperaments,
     getTemperamentsFromDB
-}
+};
