@@ -3,7 +3,7 @@ const { getById, createBreed, getBreeds } = require('../controllers/breedControl
 
 const router = Router();
 router.use('/dogs/:id', getById);
-router.use('/dogs', getBreeds);
 router.use('/dog', createBreed);
+router.use('/dogs', getBreeds);
 
 module.exports = router;

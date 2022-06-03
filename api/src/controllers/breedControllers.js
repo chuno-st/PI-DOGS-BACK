@@ -4,7 +4,7 @@ const { Breed } = require('../db');
 require('dotenv').config();
 const { GET_BREEDS } = process.env;
 
-// --------------- << GET - a '/dogs/{idRaza}:' >> ---------------
+// --------------- << GET - a '/dogs/:{idRaza}' >> ---------------
 
 const getById = async (req, res, next) => {
     const { id } = req.params
@@ -24,9 +24,12 @@ const getById = async (req, res, next) => {
 
         let IDBreed = idBreed.concat(breedByIdDb);
 
+        let BreedId = IDBreed[0]
+        console.log('--------breedByIdDb--------', Breed)
+
         if (IDBreed.length === 0) { res.json({ msg: "No existe raza para el Id ingresado" }) }
 
-        res.json(IDBreed)
+        res.json(BreedId)
 
     } catch (error) {
         next(error)
@@ -40,7 +43,7 @@ const getBreeds = async (req, res, next) => {
 
     if (!name) {
         try {
-            let breeds = (await axios(`${GET_BREEDS}`)).data.map(e => ({ Imagen: e.image, Nombre: e.name, Temperamento: e.temperament, Peso: e.weight }))
+            let breeds = (await axios(`${GET_BREEDS}`)).data.map(e => ({  ID: e.id, Imagen: e.image, Nombre: e.name, Temperamento: e.temperament, Peso: e.weight }))
 
             res.json(breeds)
         } catch (error) {
