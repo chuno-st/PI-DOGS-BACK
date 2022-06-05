@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { clearPage, getBreedDetail } from "../../redux/actions/actions";
 
 
-function BreedDetail(props) {
+function BreedDetail() {
 
     //necesitamos el id que nos llega por param
     const { id } = useParams()
@@ -17,10 +17,10 @@ function BreedDetail(props) {
 
     //ejecutamos la action cuando se monta el componente
     useEffect(() => {
-        dispatch(getBreedDetail(id))
+        dispatch(getBreedDetail(id)) // cuando se monta actualiza el componente
 
         return () => {
-            dispatch(clearPage())
+            dispatch(clearPage()) // todo lo que pase en el return es cuando se desmonta el componente
         }
     }, [dispatch, id])
 
@@ -31,12 +31,12 @@ function BreedDetail(props) {
 
                     <>
                         <div key={breedDetail.ID} >
-                            <img src={breedDetail.Imagen.url} alt={breedDetail.Nombre} />
+                            <img src={breedDetail.Imagen} alt={breedDetail.Nombre} />
                             <h3>Raza: {breedDetail.Nombre}</h3>
                             <h4>Temperamento/s: {breedDetail.Temperamento}</h4>
-                            {/* <h4>Altura: {breedDetail.Altura.metric} centimetros</h4> */}
-                            {/* <h4>Peso: {breedDetail.Peso.metric} kilos</h4> */}
-                            <h4>Años: {breedDetail.Años} </h4>
+                            <h4>Altura: {breedDetail.Altura} cms</h4>
+                            <h4>Peso: {breedDetail.Peso} kgs</h4>
+                            <h4>Años: {breedDetail.Años}</h4>
                         </div>
                     </>
                     :

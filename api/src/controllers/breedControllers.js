@@ -9,7 +9,7 @@ const { GET_BREEDS } = process.env;
 const getById = async (req, res, next) => {
     const { id } = req.params
     try {
-        let breedById = (await axios(`${GET_BREEDS}`)).data.map(e => ({ ID: e.id, Imagen: e.image, Nombre: e.name, Temperamento: e.temperament, Altura: e.height, Peso: e.weight, Años: e.life_span }));
+        let breedById = (await axios(`${GET_BREEDS}`)).data.map(e => ({ ID: e.id, Imagen: e.image.url, Nombre: e.name, Temperamento: e.temperament, Altura: e.height.metric, Peso: e.weight.metric, Años: e.life_span }));
         // console.log('-------breeById-------', breedById)
 
         let idBreed = breedById.filter((obj) => { if (obj.ID == id) return true });

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CLEAR_PAGE, GET_BREEDS, GET_BREED_DETAIL } from "./actionsTypes";
+import { CLEAR_PAGE, DEL_FAV, GET_BREEDS, GET_BREED_DETAIL, SET_FAV } from "./actionsTypes";
 
 
 export function getBreeds() {
@@ -24,4 +24,18 @@ export function clearPage(){
     return {
         type: CLEAR_PAGE
     }
-}
+};
+
+export function setFav(payload){
+    return {
+        type: SET_FAV,
+        payload
+    }
+};
+
+export function delFav(payload){
+    return {
+        type: DEL_FAV,
+        payload
+    }
+};

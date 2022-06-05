@@ -1,4 +1,4 @@
-import { CLEAR_PAGE, GET_BREEDS, GET_BREED_DETAIL } from "../actions/actionsTypes";
+import { CLEAR_PAGE, DEL_FAV, GET_BREEDS, GET_BREED_DETAIL, SET_FAV } from "../actions/actionsTypes";
 
 
 const initialState = {
@@ -24,6 +24,16 @@ function reducer(state = initialState, { type, payload }) {
             return {
                 ...state,
                 breedDetail: {}
+            }
+        case SET_FAV:
+            return {
+                ...state,
+                favBreed: state.favBreed.find((e) => e.ID === payload.ID) ? [...state.favBreed] : [...state.favBreed, payload]
+            }
+        case DEL_FAV:
+            return {
+                ...state,
+                favBreed: state.favBreed.filter((e) => e.ID !== payload.ID)
             }
 
         default: return state

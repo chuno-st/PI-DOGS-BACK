@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
         height: {
             type: DataTypes.VIRTUAL,
             get() {
-                return `${this.height_min} - ${this.height_max}`;
+                return `${this.height_min} - ${this.height_max} centimetros`;
             },
             set() {
                 throw new Error('Do not try to set the `height` value!');
@@ -42,7 +42,7 @@ module.exports = (sequelize) => {
         weight: {
             type: DataTypes.VIRTUAL,
             get() {
-                return `${this.weight_min} - ${this.weight_max}`;
+                return `${this.weight_min} - ${this.weight_max} kilos`;
             },
             set() {
                 throw new Error('Do not try to set the `weight` value!');
@@ -57,7 +57,7 @@ module.exports = (sequelize) => {
         life_span: {
             type: DataTypes.VIRTUAL,
             get() {
-                return `${this.life_span_min} - ${this.life_span_max} years`;
+                return `${this.life_span_min} - ${this.life_span_max} años`;
             },
             set() {
                 throw new Error('Do not try to set the `life_span` value!');
