@@ -20,7 +20,8 @@ function Favorites({ favBreed, delFav }) {
                         ))}
                     </ul>
                 </>
-                : <h1>AÚN NO TENES RAZAS FAVORITAS</h1>
+                : 
+                <h2>AÚN NO TENES RAZAS FAVORITAS</h2>
             }
         </div>
     )

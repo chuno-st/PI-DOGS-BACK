@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CLEAR_PAGE, DEL_FAV, GET_BREEDS, GET_BREED_DETAIL, SET_FAV } from "./actionsTypes";
+import { CLEAR_PAGE, CREATE_BREED, DEL_FAV, GET_BREEDS, GET_BREED_DETAIL, SEARCH_BREED, SET_FAV } from "./actionsTypes";
 
 
 export function getBreeds() {
@@ -20,22 +20,36 @@ export function getBreedDetail(id) {
     //     .then (json => dispatch({type: GET_BREED_DETAIL, payload:json}))
 };
 
-export function clearPage(){
+export function clearPage() {
     return {
         type: CLEAR_PAGE
     }
 };
 
-export function setFav(payload){
+export function searchBreed(name) {
+    return function (dispatch) {
+        return axios(`http://localhost:3001/dogs/?name=${name}`)
+            .then(res => dispatch({ type: SEARCH_BREED, payload: res.data }))
+    }
+}
+
+export function setFav(payload) {
     return {
         type: SET_FAV,
         payload
     }
 };
 
-export function delFav(payload){
+export function delFav(payload) {
     return {
         type: DEL_FAV,
         payload
     }
 };
+
+export function createBreed() {
+     return function (dispatch) {
+         return axios.post(`http://localhost:3001/dog`)
+            .then(res => dispatch({ type: CREATE_BREED, payload: res.data}))
+     }
+}

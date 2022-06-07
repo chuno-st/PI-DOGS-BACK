@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { clearPage, getBreedDetail } from "../../redux/actions/actions";
+import { clearPage, getBreedDetail, setFav } from "../../redux/actions/actions";
 
 
 function BreedDetail() {
@@ -28,7 +28,6 @@ function BreedDetail() {
         <>
             {
                 breedDetail ?
-
                     <>
                         <div key={breedDetail.ID} >
                             <img src={breedDetail.Imagen} alt={breedDetail.Nombre} />
@@ -37,6 +36,7 @@ function BreedDetail() {
                             <h4>Altura: {breedDetail.Altura} cms</h4>
                             <h4>Peso: {breedDetail.Peso} kgs</h4>
                             <h4>Años: {breedDetail.Años}</h4>
+                            <button onClick={() => setFav(breedDetail)}>AÑADIR A FAVORITOS</button>
                         </div>
                     </>
                     :

@@ -1,29 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { searchBreed } from "../../redux/actions/actions";
 
 function BreedFinder() {
 
-    const [data, setData] = React.useState({
-        name: ''
-    })
+    const [search, setSearch] = useState('')
+    const breed = useSelector(state => state.searchBreed)
+    const dispatch = useDispatch()
 
     function handleChange(e) {
-        // console.log(e.target.name)
-        setData({
-            ...data,
-            [e.target.name]: e.target.value
-        })
+        setSearch(e.target.value)
     }
 
-    function handleOnSubmit(e) {
+    function handleSubmit(e) {
         e.preventDefault()
+
+        dispatch(searchBreed(search))
+        setSearch('')
     }
 
     return (
         <div>
-            <form onSubmit={handleOnSubmit}>
-                <input type="text" name="name" onChange={handleChange} />
-                <button type="submit">Buscar Raza</button>
+            <form onSubmit={handleSubmit}>
+                <input type="text" value={search} onChange={handleChange} />
+                <button type="submit" disabled={!search ? true : false}>Buscar Raza</button>
             </form>
+            {breed ? breed.map(e => (<div key={e.ID}><Link to={`/dogs/${e.ID}`}> <p>{e.Nombre}</p></Link></div>)) : <div><h2>"La raza que intentas buscar no existe"</h2></div>}
+            <hr />
         </div>
     )
 };

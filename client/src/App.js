@@ -12,11 +12,11 @@ function App() {
   return (
     <div className="App">
       <Route path='/' exact component={LandingPage} />
-      <Route path='/home' component={BreedFinder} />
       <Route path='/home' component={NavBar} />
+      <Route path='/home' component={BreedFinder} />
       <Route path='/home' exact component={Home} />
-      <Route path='/favorites' component={NavBar} />
-      <Route path='/favorites' component={Favorites} />
+      <Route path='/favoritos' component={NavBar} />
+      <Route path='/favoritos' component={Favorites} />
       <Route path='/dogs/:id' component={NavBar} />
       <Route path='/dogs/:id' component={BreedDetail} />
       <Route path='/create/breed' component={NavBar} />

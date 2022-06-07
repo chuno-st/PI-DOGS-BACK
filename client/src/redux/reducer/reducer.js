@@ -1,10 +1,11 @@
-import { CLEAR_PAGE, DEL_FAV, GET_BREEDS, GET_BREED_DETAIL, SET_FAV } from "../actions/actionsTypes";
+import { CLEAR_PAGE, DEL_FAV, GET_BREEDS, GET_BREED_DETAIL, SEARCH_BREED, SET_FAV } from "../actions/actionsTypes";
 
 
 const initialState = {
     breeds: [],
     temperaments: [],
     favBreed: [],
+    searchBreed: [],
     breedDetail: {},
 };
 
@@ -34,6 +35,11 @@ function reducer(state = initialState, { type, payload }) {
             return {
                 ...state,
                 favBreed: state.favBreed.filter((e) => e.ID !== payload.ID)
+            }
+        case SEARCH_BREED:
+            return {
+                ...state,
+                searchBreed: payload
             }
 
         default: return state

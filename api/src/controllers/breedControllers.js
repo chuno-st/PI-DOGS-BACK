@@ -51,12 +51,12 @@ const getBreeds = async (req, res, next) => {
         }
     } else {
         try {
-            let apiBreeds = (await axios(`${GET_BREEDS}search?q=${name}`)).data.map(e => ({ Nombre: e.name }));
+            let apiBreeds = (await axios(`${GET_BREEDS}search?q=${name}`)).data.map(e => ({ ID: e.id,Nombre: e.name }));
 
             let nameApiBreed = apiBreeds.filter(b => (b.Nombre.toLowerCase().includes(name.toLowerCase())));
 
             let dbBreeds = await Breed.findAll()
-            let dbBreed = dbBreeds.map(e => ({ Nombre: e.name }));
+            let dbBreed = dbBreeds.map(e => ({ ID: e.id, Nombre: e.name }));
             // console.log('--------dbBreeds--------', dbBreed)
 
             let nameDbBreed = dbBreed.filter(b => (b.Nombre.toLowerCase().includes(name.toLowerCase())));
@@ -64,7 +64,7 @@ const getBreeds = async (req, res, next) => {
 
             let nameBreed = nameApiBreed.concat(nameDbBreed);
 
-            if (nameBreed.length === 0) { res.json({ msg: "La raza que intentas buscar no existe" }) }
+            if (nameBreed.length === 0) { res.status(404).send("La raza que intentas buscar no existe" ) }
 
             res.json(nameBreed)
             console.log('--------nameBreed--------', nameBreed)
