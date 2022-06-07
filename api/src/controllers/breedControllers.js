@@ -77,12 +77,13 @@ const getBreeds = async (req, res, next) => {
 // --------------- << POST - a '/dog' >> ---------------
 
 const createBreed = async (req, res) => {
-    const { name, height_min, height_max, weight_min, weight_max, life_span } = req.body;
+    const { name, height_min, height_max, weight_min, weight_max, life_span_min, life_span_max, temperaments } = req.body;
     if (!name || !height_min || !height_max || !weight_min || !weight_max) {
         return res.status(404).send('Falta completar campos obligatorios')
     }
     try {
         const newBreed = await Breed.create(req.body);
+        
         res.status(201).json(newBreed);
     }
     catch (error) {

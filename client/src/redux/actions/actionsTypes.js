@@ -5,4 +5,5 @@ export const SEARCH_BREED = 'SEARCH_BREED';
 export const SET_FAV = 'SET_FAV';
 export const DEL_FAV = 'DEL_FAV';
 export const CREATE_BREED = 'CREATE_BREED';
+export const GET_TEMPERAMENT = 'GET_TEMPERAMENT';
 

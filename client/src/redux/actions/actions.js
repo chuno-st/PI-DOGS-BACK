@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CLEAR_PAGE, CREATE_BREED, DEL_FAV, GET_BREEDS, GET_BREED_DETAIL, SEARCH_BREED, SET_FAV } from "./actionsTypes";
+import { CLEAR_PAGE, CREATE_BREED, DEL_FAV, GET_BREEDS, GET_BREED_DETAIL, GET_TEMPERAMENT, SEARCH_BREED, SET_FAV } from "./actionsTypes";
 
 
 export function getBreeds() {
@@ -52,4 +52,11 @@ export function createBreed() {
          return axios.post(`http://localhost:3001/dog`)
             .then(res => dispatch({ type: CREATE_BREED, payload: res.data}))
      }
+}
+
+export function getTemperament() {
+    return function (dispatch) {
+        return axios(`http://localhost:3001/temperament`)
+           .then(res => dispatch({ type: GET_TEMPERAMENT, payload: res.data}))
+    }
 }

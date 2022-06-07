@@ -44,7 +44,7 @@ async function getAllTemperaments() {
 async function getTemperamentsFromDB(req, res, next) {
     try {
         let dbTemperaments = await Temperament.findAll()
-        let allTemperaments = dbTemperaments.map(e => ({ Nombre: e.name }))
+        let allTemperaments = dbTemperaments.map(e => ({ ID: e.ID, Nombre: e.name }))
 
         res.send(allTemperaments)
         console.log('--------allTemperaments--------', allTemperaments)

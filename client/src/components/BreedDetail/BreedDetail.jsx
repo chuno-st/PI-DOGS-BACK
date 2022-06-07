@@ -15,6 +15,18 @@ function BreedDetail() {
     //necesitamos el estado global
     const breedDetail = useSelector(state => state.breedDetail)
 
+    // const [favBreed, setFavBreed] = useState('')
+    // const favBreeds = useSelector(state => state.favBreeds)
+
+    // dispatch(setFav(favBreeds))
+    function handleSubmit(e) {
+        e.preventDefault()
+        alert('Raza agregada a favoritos')
+        dispatch(setFav(breedDetail))
+        // favBreeds('')
+    }
+
+
     //ejecutamos la action cuando se monta el componente
     useEffect(() => {
         dispatch(getBreedDetail(id)) // cuando se monta actualiza el componente
@@ -36,7 +48,7 @@ function BreedDetail() {
                             <h4>Altura: {breedDetail.Altura} cms</h4>
                             <h4>Peso: {breedDetail.Peso} kgs</h4>
                             <h4>Años: {breedDetail.Años}</h4>
-                            <button onClick={() => setFav(breedDetail)}>AÑADIR A FAVORITOS</button>
+                            <button onClick={handleSubmit}>AÑADIR A FAVORITOS</button>
                         </div>
                     </>
                     :

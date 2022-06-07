@@ -8,20 +8,20 @@ function Favorites({ favBreed, delFav }) {
         <div>
             {favBreed.length > 0 ?
                 <>
-                    <h1>Razas favoritas</h1>
-                    <ul>
-                        {favBreed.map((e) => (
-                            <>
+                    <h2>Razas favoritas</h2>
+                    <span>
+                        {favBreed.map(e => (
+                            <h3 key={e.ID}>
                                 <Link to={`/dogs/${e.ID}`}>
-                                    <h3>{e.Nombre}</h3>
+                                    <p>{e.Nombre}</p>
                                 </Link>
                                 <button onClick={() => delFav(e)}>ELIMINAR DE FAVORITOS</button>
-                            </>
+                            </h3>
                         ))}
-                    </ul>
+                    </span>
                 </>
                 : 
-                <h2>AÚN NO TENES RAZAS FAVORITAS</h2>
+                <h2>Aún no tienes razas favoritas</h2>
             }
         </div>
     )
@@ -29,7 +29,7 @@ function Favorites({ favBreed, delFav }) {
 
 function mapStateToProps(state) {
     return {
-        favBreed: state.favBreed
+        favBreed: state.favBreeds
     }
 
 };
