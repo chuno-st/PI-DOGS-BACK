@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { searchBreed } from "../../redux/actions/actions";
 
+import s from "../BreedFinder/breedFinder.module.css"
+
 function BreedFinder() {
 
     const [search, setSearch] = useState('')
@@ -21,13 +23,17 @@ function BreedFinder() {
     }
 
     return (
-        <div>
+        <div className={s.style}>
             <form onSubmit={handleSubmit}>
-                <input type="text" value={search} onChange={handleChange} />
-                <button type="submit" disabled={!search ? true : false}>Buscar Raza</button>
+                <input className={s.input} type="text" value={search} onChange={handleChange} />
+                <button className={s.button} type="submit" disabled={!search ? true : false}>Buscar Raza</button>
             </form>
-            {breed ? breed.map(e => (<div key={e.ID}><Link to={`/dogs/${e.ID}`}> <p>{e.Nombre}</p></Link></div>)) : <div><h2>"La raza que intentas buscar no existe"</h2></div>}
-            <hr />
+            {breed ? breed.map(e => (
+                <div className={s.style2} key={e.ID}>
+                    <Link to={`/dogs/${e.ID}`}> <p >{e.Nombre}</p></Link>
+                </div>
+            )) : <div><h2>"La raza que intentas buscar no existe"</h2></div>}
+            <br />
         </div>
     )
 };

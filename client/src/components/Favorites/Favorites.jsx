@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { delFav } from '../../redux/actions/actions'
 
+import s from '../Favorites/favorites.module.css'
+
 function Favorites({ favBreed, delFav }) {
     return (
-        <div>
+        <div className={s.style}>
             {favBreed.length > 0 ?
                 <>
                     <h2>Razas favoritas</h2>

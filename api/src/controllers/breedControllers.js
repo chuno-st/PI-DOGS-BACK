@@ -17,8 +17,10 @@ const getById = async (req, res, next) => {
 
         let idDbBreeds = await Breed.findAll()
         let idDbBreed = idDbBreeds.map(e => ({ ID: e.id, Imagen: e.image, Nombre: e.name, Temperamento: e.temperament, Altura: e.height, Peso: e.weight, Años: e.life_span }));
-        // console.log('--------idDbBreeds--------', idDbBreed)
+        console.log('--------idDbBreeds--------', idDbBreed)
 
+        
+        
         let breedByIdDb = idDbBreed.filter((obj) => { if (obj.ID == id) return true });
         // console.log('--------breedByIdDb--------', breedByIdDb)
 
@@ -43,7 +45,7 @@ const getBreeds = async (req, res, next) => {
 
     if (!name) {
         try {
-            let breeds = (await axios(`${GET_BREEDS}`)).data.map(e => ({  ID: e.id, Imagen: e.image, Nombre: e.name, Temperamento: e.temperament, Peso: e.weight }))
+            let breeds = (await axios(`${GET_BREEDS}`)).data.map(e => ({ ID: e.id, Imagen: e.image, Nombre: e.name, Temperamento: e.temperament, Peso: e.weight }))
 
             res.json(breeds)
         } catch (error) {
@@ -51,7 +53,7 @@ const getBreeds = async (req, res, next) => {
         }
     } else {
         try {
-            let apiBreeds = (await axios(`${GET_BREEDS}search?q=${name}`)).data.map(e => ({ ID: e.id,Nombre: e.name }));
+            let apiBreeds = (await axios(`${GET_BREEDS}search?q=${name}`)).data.map(e => ({ ID: e.id, Nombre: e.name }));
 
             let nameApiBreed = apiBreeds.filter(b => (b.Nombre.toLowerCase().includes(name.toLowerCase())));
 
@@ -62,14 +64,18 @@ const getBreeds = async (req, res, next) => {
             let nameDbBreed = dbBreed.filter(b => (b.Nombre.toLowerCase().includes(name.toLowerCase())));
             // console.log('--------nameDbBreeds--------', nameDbBreed)
 
-            let nameBreed = nameApiBreed.concat(nameDbBreed);
+            let nameBreed = [...nameApiBreed,...nameDbBreed];
 
-            if (nameBreed.length === 0) { res.status(404).send("La raza que intentas buscar no existe" ) }
+            // if (nameBreed.length === 0) { res.status(404).send("La raza que intentas buscar no existe") }
 
             res.json(nameBreed)
             console.log('--------nameBreed--------', nameBreed)
         } catch (error) {
-            next(error)
+            if (error.response.status === 404) {
+                res.send({ message: "La raza que intentas buscar no existe" })
+            } else {
+                next(error)
+            }
         }
     }
 };
@@ -83,7 +89,7 @@ const createBreed = async (req, res) => {
     }
     try {
         const newBreed = await Breed.create(req.body);
-        
+
         res.status(201).json(newBreed);
     }
     catch (error) {
