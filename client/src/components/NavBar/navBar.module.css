@@ -3,28 +3,47 @@
     align-items: center;
     justify-content: space-around;
     height: 10vh;
+    text-decoration: none;
 
 }
 
 .ul {
     display: flex;
     justify-content: space-around;
+    text-decoration: none;
     /* width: 50%; */
 }
 
 .link {
-    text-decoration: none;
     font-style: normal;
+    font-weight: 600;
     font-size: 15px;
     color: rgb(49, 47, 47);
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 20px;
     padding-right: 20px;
-
+    text-decoration: none;
+    background-color: transparent;
+    border-color: transparent;
 
 }
 
 .link:hover {
     background-color: #fff570;
+}
+
+.link1 {
+    font-style: normal;
+    font-style: oblique;
+    font-weight: 600;
+    font-size: 30px;
+    color: rgb(49, 47, 47);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-decoration: none;
+    background-color: transparent;
+    border-color: transparent;
 }

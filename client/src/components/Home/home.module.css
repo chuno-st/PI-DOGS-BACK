@@ -1,3 +1,10 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
 .background {
     display: flex;
     flex-flow: column wrap;
@@ -7,52 +14,32 @@
     align-items: center;
 }
 
-
-* {
-    margin: 0px;
-    padding: 0px;
-}
-
 .box {
-    width: 333px;
-    height: 333px;
+    width: 330px;
+    height: 330px;
     background: #feed00;
     overflow: hidden;
-    border: 15px;
-    border-color: black;
     text-decoration: none;
 }
 
-.name {
-    text-decoration-line: none;
-
-    border: none;
-    padding: 0.75em 1.5em;
-    font-size: large;
-    font-family: Verdana, sans-serif;
-    color: rgb(49, 47, 47);
+.box figure {
+    position: relative;
+    width: 330px;
+    height: 330px;
+    overflow: hidden;
     cursor: pointer;
 }
 
-.box data {
-    text-decoration-line: none;
-
-    border: none;
-    /* padding: 0.75em 1.5em; */
-    font-size: medium;
-    font-family: Verdana, sans-serif;
-    font-weight: lighter;
-    color: rgb(49, 47, 47);
-    cursor: pointer;
-}
-
-.box img {
+.box figure img {
     width: 100%;
     height: auto;
+    text-decoration-line: none;
+    transition: all 500ms ease-out;
 }
 
+
 @supports(object-fit: cover) {
-    .box img {
+    .box figure img {
         height: 100%;
         object-fit: cover;
         object-position: center center;
@@ -60,57 +47,47 @@
 
 }
 
-.box:hover {
-    background: #feed00;
-
-}
-
-.hide {
-    display: none;
-}
-
-.box:hover+.hide {
-    display: block;
-    color: red;
-}
-
-/* <div class="myDIV">Hover over me.</div>
-  <div class="hide">I am shown when someone hovers over the div above.</div>  */
-
-.divimagen {
-    display: inline-block;
-    position: relative;
-    width: 333px;
-    height: 333px;
-    background: #feed00;
-    overflow: hidden;
-    border: 15px;
-    border-color: black;
-    text-decoration: none;
-
-}
-
-.divimagen > div {
+.box figure .capa {
     position: absolute;
     top: 0;
-    left: 0;
-    z-index: -1;
-    padding: 10px;
-    margin: 0;
-    width: 333px;
-    height: 333px;
-    background: #feed00;
-    overflow: hidden;
-    border: 15px;
-    border-color: black;
-    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    background: #feed00c0;
+    opacity: 0;
+    visibility: hidden;
+    text-align: center;
 }
 
-.desvanecer:hover {
-    opacity: 0.25;
-    -webkit-transition: opacity 500ms;
-    -moz-transition: opacity 500ms;
-    -o-transition: opacity 500ms;
-    -ms-transition: opacity 500ms;
-    transition: opacity 500ms;
+
+.box figure:hover>.capa {
+    opacity: 1;
+    visibility: visible;
+}
+
+.box figure:hover>.capa h3 {
+    margin-top: 70px;
+    margin-bottom: 15px;
+}
+
+.box figure:hover>img {
+    transform: scale(1.05);
+}
+
+.box figure .capa h3 {
+    color: rgb(49, 47, 47);
+    font-weight: 700;
+    margin-bottom: 120px;
+    transition: all 500ms ease-out;
+    margin-top: 30px;
+}
+
+.box figure .capa p {
+    color: rgb(49, 47, 47);
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.5;
+    width: 100%;
+    max-width: 220px;
+    margin: auto;
+    transition: all 500ms ease-out;
 }

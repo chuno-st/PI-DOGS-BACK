@@ -30,7 +30,7 @@ function BreedFinder() {
             </form>
             {breed ? breed.map(e => (
                 <div className={s.style2} key={e.ID}>
-                    <Link to={`/dogs/${e.ID}`}> <p >{e.Nombre}</p></Link>
+                    <Link to={`/dogs/${e.ID}`}><button className={s.links}>{e.Nombre}</button></Link>
                 </div>
             )) : <div><h2>"La raza que intentas buscar no existe"</h2></div>}
             <br />

@@ -16,7 +16,7 @@ function CreateBreed() {
         weight_max: '',
         life_span_min: '',
         life_span_max: '',
-       
+
         errors: {
             name: '* campo requerido',
             height_min: '* campo requerido',
@@ -25,7 +25,7 @@ function CreateBreed() {
             weight_max: '* campo requerido',
             life_span_min: '',
             life_span_max: '',
-            
+
         },
         disabled: true
     })
@@ -87,56 +87,66 @@ function CreateBreed() {
 
     function handleOnSubmit(e) {
         e.preventDefault()
-        // alert('Raza creada con exito')
-        (createBreed())
+            // alert('Raza creada con exito')
+            (createBreed())
         // setState('')
     }
 
     return (
         <div className={s.style}>
             <h2>Creá tu propia raza</h2>
-            <form onSubmit={handleOnSubmit}>
-                <label>{state.name && <>{'Nombre de la raza : '}</>}</label>
-                <input type="text" name="name" value={state.name} onChange={handleChange} placeholder='Nombre de la raza' required />
-                {state.errors.name && <p className="">{state.errors.name}</p>}
-                <br />
-                <label>{state.height_min && <>{'Altura mínima (cm) : '}</>}</label>
-                <input type="number" name="height_min" value={state.height_min} onChange={handleChange} placeholder='Altura mínima (centímetros)' required />
-                {state.errors.height_min && <p className="">{state.errors.height_min}</p>}
-                <br />
-                <label>{state.height_max && <>{'Altura máxima (cm) : '}</>}</label>
-                <input type="number" name="height_max" value={state.height_max} onChange={handleChange} placeholder='Altura máxima (centímetros)' required />
-                {state.errors.height_max && <p>{state.errors.height_max}</p>}
-                <br />
-                <label>{state.weight_min && <>{'Peso mínimo (kg) : '}</>}</label>
-                <input type="number" name="weight_min" value={state.weight_min} onChange={handleChange} placeholder='Peso mínimo (kilogramos)' required />
-                {state.errors.weight_min && <p>{state.errors.weight_min}</p>}
-                <br />
-                <label>{state.weight_max && <>{'Peso máximo (kg) : '}</>}</label>
-                <input type="number" name="weight_max" value={state.weight_max} onChange={handleChange} placeholder='Peso máximo (kilogramos)' required />
-                {state.errors.weight_max && <p>{state.errors.weight_max}</p>}
-                <br />
-                <label>{state.life_span_min && <>{'Esperanza de vida mínima (años) : '}</>}</label>
-                <input type="number" name="life_span_min" value={state.life_span_min} onChange={handleChange} placeholder='Esperanza de vida mínima (años)' />
-                {state.errors.life_span_min && <p>{state.errors.life_span_min}</p>}
-                <br />
-                <label>{state.life_span_max && <>{'Esperanza de vida máxima (años) : '}</>}</label>
-                <input type="number" name="life_span_max" value={state.life_span_max} onChange={handleChange} placeholder='Esperanza de vida máxima (años)' />
-                {state.errors.life_span_max && <p>{state.errors.life_span_max}</p>}
-                <br />
-                <label>Seleccionar temperamento:
-                    <select>
-                        {temperaments && temperaments.map(e => {
-                            return (
-                                <option key={e.ID} value={e.Nombre}>{e.Nombre}</option>
-                            )
-                        })}
-                    </select>
-                </label>
-                <input type="button" value="Agregar" onClick={handleSubmit}/>
-                <br />
-
-                <button type="submit" disabled={state.errors.name || state.errors.height_min || state.errors.height_max || state.errors.weight_min || state.errors.weight_max || state.errors.life_span_min || state.errors.life_span_max ? true : false}>Crear Raza</button>
+            <form className={s.container} onSubmit={handleOnSubmit}>
+                <div>
+                    <br />
+                    <div>
+                        <label>{state.name && <>{'Nombre de la raza : '}</>}</label>
+                        <input type="text" name="name" value={state.name} onChange={handleChange} placeholder='Nombre de la raza' required />
+                        {state.errors.name && <p className="">{state.errors.name}</p>}
+                    </div>
+                    <div>
+                        <label>{state.height_min && <>{'Altura mínima (cm) : '}</>}</label>
+                        <input type="number" name="height_min" value={state.height_min} onChange={handleChange} placeholder='Altura mínima (centímetros)' required />
+                        {state.errors.height_min && <p className="">{state.errors.height_min}</p>}
+                    </div>
+                    <div>
+                        <label>{state.height_max && <>{'Altura máxima (cm) : '}</>}</label>
+                        <input type="number" name="height_max" value={state.height_max} onChange={handleChange} placeholder='Altura máxima (centímetros)' required />
+                        {state.errors.height_max && <p>{state.errors.height_max}</p>}
+                    </div>
+                    <div>
+                        <label>{state.weight_min && <>{'Peso mínimo (kg) : '}</>}</label>
+                        <input type="number" name="weight_min" value={state.weight_min} onChange={handleChange} placeholder='Peso mínimo (kilogramos)' required />
+                        {state.errors.weight_min && <p>{state.errors.weight_min}</p>}
+                    </div>
+                    <div>
+                        <label>{state.weight_max && <>{'Peso máximo (kg) : '}</>}</label>
+                        <input type="number" name="weight_max" value={state.weight_max} onChange={handleChange} placeholder='Peso máximo (kilogramos)' required />
+                        {state.errors.weight_max && <p>{state.errors.weight_max}</p>}
+                    </div>
+                    <div>
+                        <label>{state.life_span_min && <>{'Esperanza de vida mínima (años) : '}</>}</label>
+                        <input type="number" name="life_span_min" value={state.life_span_min} onChange={handleChange} placeholder='Esperanza de vida mínima (años)' />
+                        {state.errors.life_span_min && <p>{state.errors.life_span_min}</p>}
+                    </div>
+                    <div>
+                        <label>{state.life_span_max && <>{'Esperanza de vida máxima (años) : '}</>}</label>
+                        <input type="number" name="life_span_max" value={state.life_span_max} onChange={handleChange} placeholder='Esperanza de vida máxima (años)' />
+                        {state.errors.life_span_max && <p>{state.errors.life_span_max}</p>}
+                    </div>
+                    <label>Seleccionar temperamento/s:
+                        <br />
+                        <select>
+                            {temperaments && temperaments.map(e => {
+                                return (
+                                    <option key={e.ID} value={e.Nombre}>{e.Nombre}</option>
+                                )
+                            })}
+                        </select>
+                    </label>
+                    <input type="button" value="Agregar" onClick={handleSubmit} />
+                    <br />
+                    <button type="submit" disabled={state.errors.name || state.errors.height_min || state.errors.height_max || state.errors.weight_min || state.errors.weight_max || state.errors.life_span_min || state.errors.life_span_max ? true : false}>Crear Raza</button>
+                </div>
             </form>
         </div>
     )

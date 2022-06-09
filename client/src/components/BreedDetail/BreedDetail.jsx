@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { clearPage, getBreedDetail, setFav } from "../../redux/actions/actions";
 
+import s from '../BreedDetail/breedDetail.module.css'
+
 
 function BreedDetail() {
 
@@ -41,14 +43,22 @@ function BreedDetail() {
             {
                 breedDetail ?
                     <>
-                        <div key={breedDetail.ID} >
-                            <img src={breedDetail.Imagen} alt={breedDetail.Nombre} />
-                            <h3>Raza: {breedDetail.Nombre}</h3>
-                            <h4>Temperamento/s: {breedDetail.Temperamento}</h4>
-                            <h4>Altura: {breedDetail.Altura} cms</h4>
-                            <h4>Peso: {breedDetail.Peso} kgs</h4>
-                            <h4>Años: {breedDetail.Años}</h4>
-                            <button onClick={handleSubmit}>AÑADIR A FAVORITOS</button>
+                        <div className={s.background} key={breedDetail.ID} >
+                            <div className={s.box}>
+                                <figure>
+                                    <img src={breedDetail.Imagen} alt={breedDetail.Nombre} />
+                                </figure>
+                            </div>
+                            <div className={s.box}>
+                                <div>
+                                    <h3>Raza: {breedDetail.Nombre}</h3>
+                                    <p>Temperamento/s: {breedDetail.Temperamento}</p>
+                                    <p>Altura: {breedDetail.Altura} cms</p>
+                                    <p>Peso: {breedDetail.Peso} kgs</p>
+                                    <p>Años: {breedDetail.Años}</p>
+                                    <button onClick={handleSubmit}>AÑADIR A FAVORITOS</button>
+                                </div>
+                            </div>
                         </div>
                     </>
                     :

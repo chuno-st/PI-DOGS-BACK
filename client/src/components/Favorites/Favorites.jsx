@@ -11,18 +11,20 @@ function Favorites({ favBreed, delFav }) {
             {favBreed.length > 0 ?
                 <>
                     <h2>Razas favoritas</h2>
-                    <span>
+                    <>
                         {favBreed.map(e => (
-                            <h3 key={e.ID}>
-                                <Link to={`/dogs/${e.ID}`}>
-                                    <p>{e.Nombre}</p>
-                                </Link>
-                                <button onClick={() => delFav(e)}>ELIMINAR DE FAVORITOS</button>
-                            </h3>
+                            <div className={s.style2}>
+                                <h3 key={e.ID}>
+                                    <Link to={`/dogs/${e.ID}`}>
+                                        <button className={s.button}>{e.Nombre}</button>
+                                    </Link>
+                                </h3>
+                                <button className={s.button} onClick={() => delFav(e)}>X</button>
+                            </div>
                         ))}
-                    </span>
+                    </>
                 </>
-                : 
+                :
                 <h2>Aún no tienes razas favoritas</h2>
             }
         </div>

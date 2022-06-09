@@ -10,52 +10,29 @@
     font-style: oblique;
 }
 
-/* .style {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    height: 15vh;
-} */
-
 .style2 {
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* align-items: center; */
-    /* justify-content: space-around; */
-    height: 5vh;
+    display: inline-flex;
+    justify-content: center;
 }
 
 .button {
     text-decoration: none;
-    font-style: oblique;
-    font-weight: 400;
+    font-weight: 600;
     font-size: 20px;
     color: rgb(49, 47, 47);
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    background-color: #feed00d5;
-    border-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #ffd000;
+    border-radius: 10px;
     border-color: transparent;
-    align-items: center;
+    margin-left: 15px;
+    margin-bottom: 20px;
+    margin-top: 10px;
 }
 
 .button:hover {
-    background-color: rgba(228, 207, 17, 0.84);
-}
-
-.input {
-    text-decoration: none;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    color: rgb(49, 47, 47);
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    background-color: #fff240;
-    border-radius: 5px;
-    border-color: #feed00;
+    background-color: #ffdb65;
+    cursor: pointer;
 }

@@ -7,11 +7,11 @@ function NavBar() {
 
     return (
         <nav className={s.style}>
-            <h1><Link to='/'>deperros.com</Link></h1>
+            <Link to='/'><button className={s.link1}>deperros.com</button></Link>
             <ul className={s.ul}>
-                <p className={s.link}><Link to='/home'> HOME </Link></p>
-                <Link to='/favoritos'><p className={s.link}> FAVORITOS </p></Link>
-                <Link to='/create/breed'><p className={s.link}> CREAR RAZA </p></Link>
+                <Link to='/home'><button className={s.link}> HOME </button></Link>
+                <Link to='/favoritos'><button className={s.link}> FAVORITOS </button></Link>
+                <Link to='/create/breed'><button className={s.link}> CREAR RAZA </button></Link>
             </ul>
         </nav>
     )

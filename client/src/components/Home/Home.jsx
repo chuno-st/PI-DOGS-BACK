@@ -21,17 +21,16 @@ function Home() {
                 {
                     breeds && breeds.map(e => {
                         return (
-                            <div key={e.Imagen.id} className={s.box}>
+                            <div key={e.Imagen.id}>
                                 <div className={s.box} ><Link to={`/dogs/${e.ID}`}>
-                                    <div className={s.divimagen}>
-                                        <img src={e.Imagen.url} alt={e.Nombre} className={s.desvanecer} />
-                                        <div className={s.box}>
+                                    <figure>
+                                        <img src={e.Imagen.url} alt={e.Nombre} />
+                                        <div className={s.capa}>
                                             <h3 >Raza:  {e.Nombre}</h3>
-                                            <h4 >Temperamento/s:  {e.Temperamento}</h4>
-                                            <h4 >Peso:  {e.Peso.metric} kilos</h4>
-
+                                            <p >Temperamento/s:  {e.Temperamento}</p>
+                                            <p >Peso:  {e.Peso.metric} kilos</p>
                                         </div>
-                                    </div>
+                                    </figure>
                                 </Link>
                                 </div>
                             </div>

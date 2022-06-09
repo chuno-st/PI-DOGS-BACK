@@ -1,0 +1,91 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+.background {
+    display: flex;
+    flex-flow: wrap;
+    width: 100vw;
+    height: 90vh;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../../img/7.png');
+    background-size: cover;
+    background-position-y: bottom;
+}
+
+.box {
+    width: 500px;
+    height: 500px;
+    background: #ffffffd5;
+    overflow: hidden;
+    text-decoration: none;
+    box-shadow: 10px 10px 20px rgba(75, 75, 75, 0.7);
+}
+
+.box figure {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    overflow: hidden;
+}
+
+.box figure img {
+    width: 100%;
+    height: auto;
+    text-decoration-line: none;
+}
+
+@supports(object-fit: cover) {
+    .box figure img {
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+    }
+}
+
+.box h3 {
+    color: rgb(49, 47, 47);
+    font-weight: 700;
+    font-size: 30px;
+    margin-bottom: 30px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 50px;
+}
+
+.box p {
+    color: rgb(49, 47, 47);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 2;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    object-position: center center;
+
+}
+
+.box button {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 22px;
+    color: rgb(49, 47, 47);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    background-color: #feed00;
+    border-radius: 20px;
+    border-color: transparent;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.box button:hover {
+    background-color: #fec30091;
+    cursor: pointer;
+}
