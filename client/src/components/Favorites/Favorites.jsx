@@ -13,8 +13,8 @@ function Favorites({ favBreed, delFav }) {
                     <h2>Razas favoritas</h2>
                     <>
                         {favBreed.map(e => (
-                            <div className={s.style2}>
-                                <h3 key={e.ID}>
+                            <div key={e.ID} className={s.style2}>
+                                <h3>
                                     <Link to={`/dogs/${e.ID}`}>
                                         <button className={s.button}>{e.Nombre}</button>
                                     </Link>

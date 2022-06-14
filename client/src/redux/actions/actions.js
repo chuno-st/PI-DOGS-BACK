@@ -1,6 +1,12 @@
 import axios from "axios";
 import { CLEAR_PAGE, CREATE_BREED, DEL_FAV, GET_BREEDS, GET_BREED_DETAIL, GET_TEMPERAMENT, SEARCH_BREED, SET_FAV } from "./actionsTypes";
 
+export function createBreed() {
+     return function (dispatch) {
+         return axios.post(`http://localhost:3001/dog`)
+            .then(res => dispatch({ type: CREATE_BREED, payload: res.data}))
+     }
+};
 
 export function getBreeds() {
     return (dispatch) => {
@@ -31,7 +37,7 @@ export function searchBreed(name) {
         return axios(`http://localhost:3001/dogs/?name=${name}`)
             .then(res => dispatch({ type: SEARCH_BREED, payload: res.data }))
     }
-}
+};
 
 export function setFav(payload) {
     return {
@@ -47,16 +53,9 @@ export function delFav(payload) {
     }
 };
 
-export function createBreed() {
-     return function (dispatch) {
-         return axios.post(`http://localhost:3001/dog`)
-            .then(res => dispatch({ type: CREATE_BREED, payload: res.data}))
-     }
-}
-
 export function getTemperament() {
     return function (dispatch) {
         return axios(`http://localhost:3001/temperament`)
            .then(res => dispatch({ type: GET_TEMPERAMENT, payload: res.data}))
     }
-}
+};
