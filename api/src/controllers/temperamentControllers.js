@@ -20,8 +20,11 @@ async function getAllTemperaments() {
         let tempSet = Array.from(new Set(tempSplit))
         // console.log('-----------------------------------------------------------',tempSet)
 
+        let tempSort = tempSet.sort()
+        // console.log('-----------------------------------------------------------',tempSort)
+
         let tempObj = {}
-        Array.prototype.push.apply(tempObj, tempSet)
+        Array.prototype.push.apply(tempObj, tempSort)
         delete tempObj.length
         // console.log('-----------------------------------------------------------',tempObj)
 
@@ -47,7 +50,7 @@ async function getTemperamentsFromDB(req, res, next) {
         let allTemperaments = dbTemperaments.map(e => ({ ID: e.ID, Nombre: e.name }))
 
         res.send(allTemperaments)
-        console.log('--------allTemperaments--------', allTemperaments)
+        // console.log('--------allTemperaments--------', allTemperaments)
     } catch (error) {
         next(error)
     }

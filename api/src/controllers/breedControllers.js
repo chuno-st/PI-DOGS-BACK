@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { Breed } = require('../db');
+const { Breed, Temperament } = require('../db');
 
 require('dotenv').config();
 const { GET_BREEDS } = process.env;
@@ -15,19 +15,35 @@ const getById = async (req, res, next) => {
         let idBreed = breedById.filter((obj) => { if (obj.ID == id) return true });
         // console.log('-------idBreed-------', idBreed)
 
-        let idDbBreeds = await Breed.findAll()
-        let idDbBreed = idDbBreeds.map(e => ({ ID: e.id, Imagen: e.image, Nombre: e.name, Temperamento: e.temperament, Altura: e.height, Peso: e.weight, Años: e.life_span }));
-        console.log('--------idDbBreeds--------', idDbBreed)
+        // let idDbBreeds = await Breed.findAll()
 
-        
-        
-        let breedByIdDb = idDbBreed.filter((obj) => { if (obj.ID == id) return true });
+        let idDbBreeds = await Breed.findByPk(id, {
+            include: [
+                {
+                    model: Temperament,
+                    attributes: ['ID','name']
+                }
+            ]
+        })
+        console.log('--------idDbBreeds--------', idDbBreeds)
+
+        let idDbBreed = {
+            Imagen: idDbBreeds.name,
+            Nombre: idDbBreeds.name,
+            Temperamento: idDbBreeds.temperaments.temperament,
+            Altura: idDbBreeds.height,
+            Peso: idDbBreeds.weight,
+            Años: idDbBreeds.life_span 
+        };
+        console.log('--------idDbBreed--------', idDbBreed)
+
+        // let breedByIdDb = idDbBreed.filter((obj) => { if (obj.ID == id) return true });
         // console.log('--------breedByIdDb--------', breedByIdDb)
 
-        let IDBreed = idBreed.concat(breedByIdDb);
+        let IDBreed = idBreed.concat(idDbBreed);
 
         let BreedId = IDBreed[0]
-        console.log('--------breedByIdDb--------', Breed)
+        console.log('--------breedByIdDb--------', BreedId)
 
         if (IDBreed.length === 0) { res.json({ msg: "No existe raza para el Id ingresado" }) }
 
@@ -58,13 +74,13 @@ const getBreeds = async (req, res, next) => {
             let nameApiBreed = apiBreeds.filter(b => (b.Nombre.toLowerCase().includes(name.toLowerCase())));
 
             let dbBreeds = await Breed.findAll()
-            let dbBreed = dbBreeds.map(e => ({ ID: e.id, Nombre: e.name }));
+            let dbBreed = dbBreeds.map(e => ({ ID: e.ID, Nombre: e.name }));
             // console.log('--------dbBreeds--------', dbBreed)
 
             let nameDbBreed = dbBreed.filter(b => (b.Nombre.toLowerCase().includes(name.toLowerCase())));
             // console.log('--------nameDbBreeds--------', nameDbBreed)
 
-            let nameBreed = [...nameApiBreed,...nameDbBreed];
+            let nameBreed = [...nameApiBreed, ...nameDbBreed];
 
             // if (nameBreed.length === 0) { res.status(404).send("La raza que intentas buscar no existe") }
 
@@ -88,11 +104,58 @@ const createBreed = async (req, res) => {
         return res.status(404).send('Falta completar campos obligatorios')
     }
     try {
-        const newBreed = await Breed.create(req.body);
+        let existBreed = await Breed.findOne({
+            where: {
+                name: name
+            }
+        })
 
-        res.status(201).json(newBreed);
-    }
-    catch (error) {
+        if (existBreed) {
+            res.send({ message: 'Ya existe una raza con ese nombre' })
+        } else {
+            const newBreed = await Breed.create({
+                name,
+                height_min,
+                height_max,
+                weight_min,
+                weight_max,
+                life_span_min,
+                life_span_max
+            });
+
+            console.log(temperaments)
+
+            const promesa = temperaments?.map(temperament => {
+                return new Promise(async (resolve, reject) => {
+                    let temperamentoBuscado = await Temperament.findOne({
+                        where: {
+                            name: temperament.temperament
+                        }
+                    })
+                    resolve(
+                        newBreed.addTemperament(temperamentoBuscado)
+                    )
+                    reject(err => next(err))
+                })
+            })
+
+            await Promise.all(promesa)
+            let breedRes = await Breed.findOne({
+                where: {
+                    ID: newBreed.ID
+                },
+                include: [
+                    {
+                        model: Temperament,
+                        attributes: ['ID', 'name']
+                    }
+                ]
+            })
+            res.status(201).json(breedRes)
+            // res.status(201).json(newBreed)
+
+        }
+    } catch (error) {
         res.status(404).send('Error en alguno de los datos provistos')
     }
 };
