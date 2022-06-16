@@ -62,7 +62,12 @@ module.exports = (sequelize) => {
             set() {
                 throw new Error('Do not try to set the `life_span` value!');
             }
-        }
+        },
+        createdInDb: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: true,
+        },
     }, {
         timestamps: false
     });

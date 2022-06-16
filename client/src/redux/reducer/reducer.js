@@ -1,8 +1,9 @@
-import { CLEAR_PAGE, CREATE_BREED, DEL_FAV, GET_BREEDS, GET_BREED_DETAIL, GET_TEMPERAMENT, SEARCH_BREED, SET_FAV } from "../actions/actionsTypes";
+import { CLEAR_PAGE, CREATE_BREED, DEL_FAV, FILTER_BY_TEMPERAMENT, GET_BREEDS, GET_BREED_DETAIL, GET_TEMPERAMENT, SEARCH_BREED, SET_FAV } from "../actions/actionsTypes";
 
 
 const initialState = {
     breeds: [],
+    allBreeds: [],
     temperaments: [],
     favBreeds: [],
     searchBreed: [],
@@ -15,7 +16,8 @@ function reducer(state = initialState, { type, payload }) {
         case GET_BREEDS:
             return {
                 ...state,
-                breeds: payload
+                breeds: payload,
+                allBreeds: payload
             }
         case GET_BREED_DETAIL:
             return {
@@ -52,6 +54,14 @@ function reducer(state = initialState, { type, payload }) {
                 ...state,
                 temperaments: payload
             }
+        case FILTER_BY_TEMPERAMENT:
+            const allBreeds = state.allBreeds
+            const tempreamentFiltered = payload === '' ? allBreeds : allBreeds.filter((e) => e.Temperamento.toLowerCase().includes(payload.toLowerCase()))
+            return {
+                ...state,
+                breeds: tempreamentFiltered
+            }
+
 
         default: return state
     }

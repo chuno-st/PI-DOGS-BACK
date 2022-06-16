@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CLEAR_PAGE, CREATE_BREED, DEL_FAV, GET_BREEDS, GET_BREED_DETAIL, GET_TEMPERAMENT, SEARCH_BREED, SET_FAV } from "./actionsTypes";
+import { CLEAR_PAGE, CREATE_BREED, DEL_FAV, FILTER_BY_TEMPERAMENT, GET_BREEDS, GET_BREED_DETAIL, GET_TEMPERAMENT, SEARCH_BREED, SET_FAV } from "./actionsTypes";
 
 export function createBreed() {
      return function (dispatch) {
@@ -57,5 +57,13 @@ export function getTemperament() {
     return function (dispatch) {
         return axios(`http://localhost:3001/temperament`)
            .then(res => dispatch({ type: GET_TEMPERAMENT, payload: res.data}))
+    }
+};
+
+export function filterByTemperament(payload) {
+    console.log(payload)
+    return {
+        type: FILTER_BY_TEMPERAMENT,
+        payload
     }
 };

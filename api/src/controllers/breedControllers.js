@@ -1,5 +1,6 @@
 const axios = require('axios');
 const { Breed, Temperament } = require('../db');
+const validate = require('uuid-validate');
 
 require('dotenv').config();
 const { GET_BREEDS } = process.env;
@@ -9,45 +10,66 @@ const { GET_BREEDS } = process.env;
 const getById = async (req, res, next) => {
     const { id } = req.params
     try {
-        let breedById = (await axios(`${GET_BREEDS}`)).data.map(e => ({ ID: e.id, Imagen: e.image.url, Nombre: e.name, Temperamento: e.temperament, Altura: e.height.metric, Peso: e.weight.metric, Años: e.life_span }));
-        // console.log('-------breeById-------', breedById)
+        // let idDbBreed;
+        if (validate(id)) {
 
-        let idBreed = breedById.filter((obj) => { if (obj.ID == id) return true });
-        // console.log('-------idBreed-------', idBreed)
+            // let idDbBreeds = await Breed.findAll()
 
-        // let idDbBreeds = await Breed.findAll()
+            let idDbBreeds = await Breed.findByPk(id, {
+                include: [
+                    {
+                        model: Temperament,
+                        attributes: ['name'],
+                        through: {
+                            attributes: []
+                        }
+                    }
+                ]
+            })
+            console.log('--------idDbBreeds--------', idDbBreeds)
 
-        let idDbBreeds = await Breed.findByPk(id, {
-            include: [
-                {
-                    model: Temperament,
-                    attributes: ['ID','name']
-                }
-            ]
-        })
-        console.log('--------idDbBreeds--------', idDbBreeds)
+            let idDbBreed = {
+                Imagen: idDbBreeds.name,
+                Nombre: idDbBreeds.name,
+                Temperamento: idDbBreeds.temperaments.map(e => e.temperament),
+                Altura: idDbBreeds.height,
+                Peso: idDbBreeds.weight,
+                Años: idDbBreeds.life_span
+            };
+            console.log('--------idDbBreed--------', idDbBreed)
 
-        let idDbBreed = {
-            Imagen: idDbBreeds.name,
-            Nombre: idDbBreeds.name,
-            Temperamento: idDbBreeds.temperaments.temperament,
-            Altura: idDbBreeds.height,
-            Peso: idDbBreeds.weight,
-            Años: idDbBreeds.life_span 
-        };
-        console.log('--------idDbBreed--------', idDbBreed)
+            if (idDbBreed) {
+                res.send(idDbBreed)
+            } else {
+                res.send('No existe raza para el Id ingresado')
+            }
+            // let breedByIdDb = idDbBreed.filter((obj) => { if (obj.ID == id) return true });
+            // console.log('--------breedByIdDb--------', breedByIdDb)
+        } else {
+            let breedById = (await axios(`${GET_BREEDS}`)).data.map(e => ({ ID: e.id, Imagen: e.image.url, Nombre: e.name, Temperamento: e.temperament, Altura: e.height.metric, Peso: e.weight.metric, Años: e.life_span }));
+            // console.log('-------breeById-------', breedById)
 
-        // let breedByIdDb = idDbBreed.filter((obj) => { if (obj.ID == id) return true });
-        // console.log('--------breedByIdDb--------', breedByIdDb)
+            let idBreed = breedById.filter((obj) => { if (obj.ID == id) return true });
+            // console.log('-------idBreed-------', idBreed)
+            if (idBreed) {
+                res.send(idBreed[0])
+                console.log('--------idBreed--------', idBreed[0])
 
-        let IDBreed = idBreed.concat(idDbBreed);
+            } else {
+                res.send('No existe raza para el Id ingresado')
+            }
+        }
 
-        let BreedId = IDBreed[0]
-        console.log('--------breedByIdDb--------', BreedId)
 
-        if (IDBreed.length === 0) { res.json({ msg: "No existe raza para el Id ingresado" }) }
 
-        res.json(BreedId)
+        // let IDBreed = idBreed.concat(idDbBreed);
+
+        // let BreedId = IDBreed[0]
+        // console.log('--------breedByIdDb--------', BreedId)
+
+        // if (IDBreed.length === 0) { res.json({ msg: "No existe raza para el Id ingresado" }) }
+
+        // res.json(BreedId)
 
     } catch (error) {
         next(error)
@@ -61,9 +83,42 @@ const getBreeds = async (req, res, next) => {
 
     if (!name) {
         try {
-            let breeds = (await axios(`${GET_BREEDS}`)).data.map(e => ({ ID: e.id, Imagen: e.image, Nombre: e.name, Temperamento: e.temperament, Peso: e.weight }))
+            let breedsApi = (await axios(`${GET_BREEDS}`)).data.map(e => ({ ID: e.id, Imagen: e.image, Nombre: e.name, Temperamento: e.temperament, Peso: e.weight }))
 
-            res.json(breeds)
+            let breedsDB = await Breed.findAll({
+                include: [
+                    {
+                        model: Temperament,
+                        attributes: ['name'],
+                        through: {
+                            attributes: []
+                        }
+                    }
+                ]
+            });
+            console.log('--------breedsDb--------', breedsDB)
+
+
+            let formatBreedDB = await breedsDB.map(e => (
+                {
+                    ID: e.ID,
+                    Imagen: e.name,
+                    Nombre: e.name,
+                    Temperamento: e.temperaments.join(),
+                    Altura: e.height,
+                    Peso: e.weight,
+                    Años: e.life_span
+                }
+            ));
+
+
+            let allBreeds = breedsApi.concat(formatBreedDB)
+
+            console.log('--------formatBreedDb--------', formatBreedDB)
+
+            res.json(allBreeds)
+            // res.json(breedsApi)
+
         } catch (error) {
             next(error)
         }
@@ -147,7 +202,10 @@ const createBreed = async (req, res) => {
                 include: [
                     {
                         model: Temperament,
-                        attributes: ['ID', 'name']
+                        attributes: ['name'],
+                        through: {
+                            attributes: []
+                        }
                     }
                 ]
             })

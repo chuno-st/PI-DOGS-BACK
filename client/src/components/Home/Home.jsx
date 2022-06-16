@@ -1,34 +1,89 @@
 import { useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBreeds } from "../../redux/actions/actions";
+import { getBreeds, getTemperament, filterByTemperament } from "../../redux/actions/actions";
 import { Link } from "react-router-dom";
 
 import s from "../Home/home.module.css";
 
 
 function Home() {
+
     const dispatch = useDispatch()
     const breeds = useSelector(state => state.breeds)
+    const allTemperaments = useSelector(state => state.temperaments)
+
+    const [currentPage, setCurrentPage] = useState(1)
+    const [breedsPerPage, setBreedsPerPage] = useState(8)
+    const indexOfLastBreed = currentPage * breedsPerPage
+    const indexOfFirstBreed = indexOfLastBreed - breedsPerPage
+    const currentBreeds = breeds.slice(indexOfFirstBreed, indexOfLastBreed)
+
+    const paginated = (pageNumber) => {
+        setCurrentPage(pageNumber)
+    }
+
+    const pageNumbers = []
+
+    for (let i = 1; i <= Math.ceil(breeds.length / breedsPerPage); i++) {
+        pageNumbers.push(i)
+    }
 
     useEffect(() => {
         dispatch(getBreeds())
     }, [dispatch])
 
+    useEffect(() => {
+        dispatch(getTemperament())
+    }, [dispatch])
+
+    function handleFilterTemperament(e){
+        dispatch(filterByTemperament(e.target.value))
+    }
+
     return (
         <div>
             <h1>Conocé todas las razas del mundo acá</h1>
+            <div >
+                <label>
+                    <select onChange={e => handleFilterTemperament(e)}>
+                        {allTemperaments && allTemperaments.map(e => {
+                            return (
+                                <option key={e.ID} value={e.Nombre}> {e.Nombre} </option>
+                            )
+                        })}
+                    </select>
+                    <select>
+                        <option value="all">Todas</option>
+                        <option value="api">Existentes</option>
+                        <option value="bd">Creadas</option>
+                    </select>
+                    <input type="button" value="Filtrar" />
+                </label>
+                <label>
+                    <select>
+                        <option value="asc">A-Z</option>
+                        <option value="desc">Z-A</option>
+                    </select>
+                    <select>
+                        <option value="mayor">Mayor peso</option>
+                        <option value="menor">Menor peso</option>
+                    </select>
+                    <input type="button" value="Ordenar" />
+                </label>
+            </div>
             <div className={s.background} >
                 {
-                    breeds && breeds.map(e => {
+                    currentBreeds && currentBreeds.map(e => {
                         return (
-                            <div key={e.Imagen.id}>
+                            <div key={e.ID}>
                                 <div className={s.box} ><Link to={`/dogs/${e.ID}`}>
                                     <figure>
                                         <img src={e.Imagen.url} alt={e.Nombre} />
                                         <div className={s.capa}>
                                             <h3 >Raza:  {e.Nombre}</h3>
                                             <p >Temperamento/s:  {e.Temperamento}</p>
-                                            <p >Peso:  {e.Peso.metric} kilos</p>
+                                            <p >Peso:  {e.Peso.metric || e.Peso} kilos</p>
                                         </div>
                                     </figure>
                                 </Link>
@@ -37,6 +92,15 @@ function Home() {
                         )
                     })
                 }
+            </div>
+            <div>
+                <ul>
+                    {pageNumbers && pageNumbers.map(n => {
+                        return (
+                            <button className={s.link} onClick={() => paginated(n)}>{n}</button>
+                        )
+                    })}
+                </ul>
             </div>
         </div>
     )
