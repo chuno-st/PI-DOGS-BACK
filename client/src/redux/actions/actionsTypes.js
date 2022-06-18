@@ -7,4 +7,7 @@ export const DEL_FAV = 'DEL_FAV';
 export const CREATE_BREED = 'CREATE_BREED';
 export const GET_TEMPERAMENT = 'GET_TEMPERAMENT';
 export const FILTER_BY_TEMPERAMENT = 'FILTER_BY_TEMPERAMENT';
+export const FILTER_BY_CREATED = 'FILTER_BY_CREATED';
+export const ORDER_BY_NAME = 'ORDER_BY_NAME';
+export const ORDER_BY_WEIGHT = 'ORDER_BY_WEIGHT';
 

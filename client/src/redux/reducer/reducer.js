@@ -1,4 +1,4 @@
-import { CLEAR_PAGE, CREATE_BREED, DEL_FAV, FILTER_BY_TEMPERAMENT, GET_BREEDS, GET_BREED_DETAIL, GET_TEMPERAMENT, SEARCH_BREED, SET_FAV } from "../actions/actionsTypes";
+import { CLEAR_PAGE, CREATE_BREED, DEL_FAV, FILTER_BY_CREATED, FILTER_BY_TEMPERAMENT, GET_BREEDS, GET_BREED_DETAIL, GET_TEMPERAMENT, ORDER_BY_NAME, ORDER_BY_WEIGHT, SEARCH_BREED, SET_FAV } from "../actions/actionsTypes";
 
 
 const initialState = {
@@ -56,12 +56,63 @@ function reducer(state = initialState, { type, payload }) {
             }
         case FILTER_BY_TEMPERAMENT:
             const allBreeds = state.allBreeds
-            const tempreamentFiltered = payload === '' ? allBreeds : allBreeds.filter((e) => e.Temperamento.toLowerCase().includes(payload.toLowerCase()))
+            const tempreamentFiltered = payload === '' ? allBreeds : allBreeds.filter((e) => e.Temperamento && e.Temperamento.includes(payload))
             return {
                 ...state,
                 breeds: tempreamentFiltered
             }
-
+        case FILTER_BY_CREATED:
+            // const allBreed = state.allBreeds
+            const createdfilter = payload === 'bd' ? state.allBreeds.filter(e => e.createdInDb) : state.allBreeds.filter(e => !e.createdInDb)
+            return {
+                ...state,
+                breeds: payload === 'all' ? state.allBreeds : createdfilter
+            }
+        case ORDER_BY_NAME:
+            let sortedBreeds = payload === 'asc' ? state.allBreeds.sort(function (a, b) {
+                if (a.Nombre > b.Nombre) {
+                    return 1;
+                }
+                if (a.Nombre < b.Nombre) {
+                    return -1;
+                }
+                return 0
+            }) : state.allBreeds.sort(function (a, b) {
+                if (a.Nombre > b.Nombre) {
+                    return -1;
+                }
+                if (a.Nombre < b.Nombre) {
+                    return 1;
+                }
+                return 0
+            })
+            return {
+                ...state,
+                breeds: sortedBreeds
+            }
+        case ORDER_BY_WEIGHT:
+            // let regex = /(\d+)/g;
+            let sortedByWeight = payload === 'mayor' ? state.allBreeds.sort(function (a, b) {
+                if (a.Peso && (a.Peso === isNaN ? 0 : (a.Peso.split(' - ').map(Number))) > b.Peso &&(b.Peso === isNaN ? 0 : (b.Peso.split(' - ').map(Number)))) {
+                    return 1;
+                }
+                if (a.Peso &&(a.Peso === isNaN ? 0 : (a.Peso.split(' - ').map(Number))) < b.Peso &&(b.Peso === isNaN ? 0 : (b.Peso.split(' - ').map(Number)))) {
+                    return -1;
+                }
+                return 0
+            }) : state.allBreeds.sort(function (a, b) {
+                if (a.Peso &&(a.Peso === isNaN ? 0 : (a.Peso.split(' - ').map(Number))) > b.Peso &&(b.Peso === isNaN ? 0 : (b.Peso.split(' - ').map(Number)))) {
+                    return -1;
+                }
+                if (a.Peso &&(a.Peso === isNaN ? 0 : (a.Peso.split(' - ').map(Number))) < b.Peso &&(b.Peso === isNaN ? 0 : (b.Peso.split(' - ').map(Number)))) {
+                    return 1;
+                }
+                return 0
+            })
+            return {
+                ...state,
+                breeds: sortedByWeight
+            }
 
         default: return state
     }
