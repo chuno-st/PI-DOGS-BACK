@@ -83,7 +83,7 @@ const getBreeds = async (req, res, next) => {
 
     if (!name) {
         try {
-            let breedsApi = (await axios(`${GET_BREEDS}`)).data.map(e => ({ ID: e.id, Imagen: e.image, Nombre: e.name, Temperamento: e.temperament, Peso: e.weight }))
+            let breedsApi = (await axios(`${GET_BREEDS}`)).data.map(e => ({ ID: e.id, Imagen: e.image, Nombre: e.name, Temperamento: e.temperament, Peso: e.weight.metric }))
 
             let breedsDB = await Breed.findAll({
                 include: [
@@ -107,7 +107,8 @@ const getBreeds = async (req, res, next) => {
                     Temperamento: e.temperaments.join(),
                     Altura: e.height,
                     Peso: e.weight,
-                    Años: e.life_span
+                    Años: e.life_span,
+                    createdInDb: e.createdInDb
                 }
             ));
 
