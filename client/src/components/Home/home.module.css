@@ -151,3 +151,29 @@
 .link:hover {
     background-color: #fff570;
 }
+
+.container label {
+    text-decoration: none;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    color: rgb(49, 47, 47);
+    padding-left: 7px;
+    padding-right: 7px;
+    border-radius: 5px;
+}
+
+.container select {
+    text-decoration: none;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    color: rgb(49, 47, 47);
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 7px;
+    padding-right: 7px;
+    background-color: #fff45bc9;
+    border-radius: 5px;
+    border-color: #feed00;
+}

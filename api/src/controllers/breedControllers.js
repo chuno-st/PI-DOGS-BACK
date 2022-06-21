@@ -29,7 +29,8 @@ const getById = async (req, res, next) => {
             console.log('--------idDbBreeds--------', idDbBreeds)
 
             let idDbBreed = {
-                Imagen: idDbBreeds.name,
+                ID: idDbBreeds.ID,
+                Imagen: `https://www.hogarmania.com/archivos/201108/mestizo1-XxXx80.jpg`,
                 Nombre: idDbBreeds.name,
                 Temperamento: idDbBreeds.temperaments.map(e => e.name + ', '),
                 Altura: idDbBreeds.height,

@@ -24,16 +24,20 @@ function BreedFinder() {
 
     return (
         <div className={s.style}>
-            <form onSubmit={handleSubmit}>
-                <input className={s.input} type="text" placeholder="Nombre de la raza..." value={search} onChange={handleChange} />
-                <button className={s.button} type="submit" disabled={!search ? true : false}>Buscar Raza</button>
-            </form>
-            {breed ? breed.map(e => (
-                <div className={s.style2} key={e.ID}>
-                    <Link to={`/dogs/${e.ID}`}><button className={s.links}>{e.Nombre}</button></Link>
-                </div>
-            )) : <div><h2>"La raza que intentas buscar no existe"</h2></div>}
-            <br />
+            <div className={s.style2}>
+                <form onSubmit={handleSubmit}>
+                    <input className={s.input} type="text" placeholder="Nombre de la raza..." value={search} onChange={handleChange} />
+                    <button className={s.button} type="submit" disabled={!search ? true : false}>Buscar Raza</button>
+                </form>
+            </div>
+            <div className={s.style2}>
+                {breed ? breed.map(e => (
+                    <div key={e.ID}>
+                        <Link to={`/dogs/${e.ID}`}><button className={s.links}>{e.Nombre}</button></Link>
+                    </div>
+                )) : <div><h2>"La raza que intentas buscar no existe"</h2></div>}
+                <br />
+            </div>
         </div>
     )
 };

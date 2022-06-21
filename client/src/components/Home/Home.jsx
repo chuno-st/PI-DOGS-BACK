@@ -13,9 +13,9 @@ function Home() {
     const breeds = useSelector(state => state.breeds)
     const allTemperaments = useSelector(state => state.temperaments)
 
-    const [orden, setOrden] = useState('')
+    const [, setOrden] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
-    const [breedsPerPage, setBreedsPerPage] = useState(8)
+    const [breedsPerPage, ] = useState(8)
     const indexOfLastBreed = currentPage * breedsPerPage
     const indexOfFirstBreed = indexOfLastBreed - breedsPerPage
     const currentBreeds = breeds.slice(indexOfFirstBreed, indexOfLastBreed)
@@ -63,9 +63,9 @@ function Home() {
     return (
         <div>
             <h1>Conocé todas las razas del mundo acá</h1>
-            <div >
-                <label> Filtrar razas por:
-                    <select onChange={e => handleFilterTemperament(e)}>
+            <div className={s.container}>
+                <label> Filtrar por:
+                    <select  className={s.button} onChange={e => handleFilterTemperament(e)}>
                         {allTemperaments && allTemperaments.map(e => {
                             return (
                                 <option key={e.ID} value={e.Nombre}> {e.Nombre} </option>
@@ -74,22 +74,21 @@ function Home() {
                     </select>
                 </label>
                 <label>
-                    <select onChange={e => handleFilterCreated(e)}>
+                    <select className={s.button} onChange={e => handleFilterCreated(e)}>
                         <option value="all">Todas</option>
                         <option value="api">Existentes</option>
                         <option value="bd">Creadas</option>
                     </select>
                 </label>
-            </div>
-            <div>
-                <label> Ordenar razas por:
-                    <select onChange={e => handleOrderByName(e)}>
+            
+                <label> Ordenar por:
+                    <select className={s.button} onChange={e => handleOrderByName(e)}>
                         <option value="asc">A-Z</option>
                         <option value="desc">Z-A</option>
                     </select>
                 </label>
                 <label>
-                    <select onChange={e => handleOrderByWeight(e)}>
+                    <select className={s.button} onChange={e => handleOrderByWeight(e)}>
                         <option value="mayor">Mayor peso</option>
                         <option value="menor">Menor peso</option>
                     </select>

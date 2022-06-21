@@ -79,6 +79,13 @@ function CreateBreed() {
         });
     };
 
+    function handleDelete (e) {
+        setState({
+            ...state,
+            temperaments: [...state.temperaments.filter(temp => temp !== e)]
+        })
+    }
+
     const allTemperaments = useSelector(state => state.temperaments)
     const dispatch = useDispatch()
 
@@ -170,11 +177,12 @@ function CreateBreed() {
                         {state.temperaments && state.temperaments.map((e, i) => (
                             <div key={i}>
                                 <label htmlFor={`${i}`}>{`Temperamento  # ${i + 1} :  ${e}`}</label>
+                                <button className={s.buttonX} onClick={()=> handleDelete(e)}>x</button>
                             </div>
                         ))}
                     </label>
                     <br />
-                    <button type="submit" disabled={state.errors.name || state.errors.height_min || state.errors.height_max || state.errors.weight_min || state.errors.weight_max || state.errors.life_span_min || state.errors.life_span_max ? true : false}>Crear Raza</button>
+                    <button className={s.buttonCreate} type="submit" disabled={state.errors.name || state.errors.height_min || state.errors.height_max || state.errors.weight_min || state.errors.weight_max || state.errors.life_span_min || state.errors.life_span_max ? true : false}>Crear Raza</button>
                 </div>
             </form>
         </div>

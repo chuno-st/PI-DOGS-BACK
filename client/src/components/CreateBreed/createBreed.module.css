@@ -26,27 +26,6 @@
     margin-bottom: 15xp;
 }
 
-.container button {
-    text-decoration: none;
-    font-style: oblique;
-    font-weight: 600;
-    font-size: 20px;
-    color: rgb(49, 47, 47);
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    background-color: #feed00d5;
-    border-radius: 5px;
-    border-color: transparent;
-    align-items: center;
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
-
-.container button:hover {
-    background-color: rgba(228, 207, 17, 0.84);
-}
 
 .container input {
     text-decoration: none;
@@ -101,4 +80,48 @@
     background-color: #fff2408e;
     border-radius: 5px;
     border-color: #feed00;
+}
+
+.buttonX {
+    text-decoration: none;
+    font-style: oblique;
+    font-weight: 600;
+    font-size: 15px;
+    color: rgb(49, 47, 47);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: #feed00d5;
+    border-radius: 5px;
+    border-color: transparent;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.buttonX:hover {
+    background-color: rgba(228, 207, 17, 0.84);
+}
+
+.buttonCreate {
+    text-decoration: none;
+    font-style: oblique;
+    font-weight: 600;
+    font-size: 20px;
+    color: rgb(49, 47, 47);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #feed00d5;
+    border-radius: 5px;
+    border-color: transparent;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.buttonCreate:hover {
+    background-color: rgba(228, 207, 17, 0.84);
 }
