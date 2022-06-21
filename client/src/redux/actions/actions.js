@@ -1,11 +1,12 @@
 import axios from "axios";
-import { CLEAR_PAGE, CREATE_BREED, DEL_FAV, FILTER_BY_CREATED, FILTER_BY_TEMPERAMENT, GET_BREEDS, GET_BREED_DETAIL, GET_TEMPERAMENT, ORDER_BY_NAME, ORDER_BY_WEIGHT, SEARCH_BREED, SET_FAV } from "./actionsTypes";
+import { CLEAR_PAGE, DEL_FAV, FILTER_BY_CREATED, FILTER_BY_TEMPERAMENT, GET_BREEDS, GET_BREED_DETAIL, GET_TEMPERAMENT, ORDER_BY_NAME, ORDER_BY_WEIGHT, SEARCH_BREED, SET_FAV } from "./actionsTypes";
 
-export function createBreed() {
-     return function (dispatch) {
-         return axios.post(`http://localhost:3001/dog`)
-            .then(res => dispatch({ type: CREATE_BREED, payload: res.data}))
-     }
+export function createBreed(payload) {
+    return async function (dispatch) {
+        const response = await axios.post(`http://localhost:3001/dog`, payload);
+        console.log(response)
+        return response;
+    }
 };
 
 export function getBreeds() {
@@ -56,7 +57,7 @@ export function delFav(payload) {
 export function getTemperament() {
     return function (dispatch) {
         return axios(`http://localhost:3001/temperament`)
-           .then(res => dispatch({ type: GET_TEMPERAMENT, payload: res.data}))
+            .then(res => dispatch({ type: GET_TEMPERAMENT, payload: res.data }))
     }
 };
 
@@ -76,7 +77,7 @@ export function filterByCreated(payload) {
     }
 };
 
-export function orderByName (payload) {
+export function orderByName(payload) {
     console.log(payload)
     return {
         type: ORDER_BY_NAME,
@@ -84,7 +85,7 @@ export function orderByName (payload) {
     }
 }
 
-export function orderByWeight (payload) {
+export function orderByWeight(payload) {
     console.log(payload)
     return {
         type: ORDER_BY_WEIGHT,

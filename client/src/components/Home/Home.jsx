@@ -102,7 +102,7 @@ function Home() {
                             <div key={e.ID}>
                                 <div className={s.box} ><Link to={`/dogs/${e.ID}`}>
                                     <figure>
-                                        <img src={e.Imagen.url} alt={e.Nombre} />
+                                        <img src={e.Imagen.url } alt={e.Nombre} />
                                         <div className={s.capa}>
                                             <h3 >Raza:  {e.Nombre}</h3>
                                             <p >Temperamento/s:  {e.Temperamento}</p>

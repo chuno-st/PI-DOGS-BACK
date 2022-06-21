@@ -12,12 +12,12 @@ function BreedFinder() {
     const dispatch = useDispatch()
 
     function handleChange(e) {
+        e.preventDefault()
         setSearch(e.target.value)
     }
 
     function handleSubmit(e) {
         e.preventDefault()
-
         dispatch(searchBreed(search))
         setSearch('')
     }
@@ -25,7 +25,7 @@ function BreedFinder() {
     return (
         <div className={s.style}>
             <form onSubmit={handleSubmit}>
-                <input className={s.input} type="text" value={search} onChange={handleChange} />
+                <input className={s.input} type="text" placeholder="Nombre de la raza..." value={search} onChange={handleChange} />
                 <button className={s.button} type="submit" disabled={!search ? true : false}>Buscar Raza</button>
             </form>
             {breed ? breed.map(e => (

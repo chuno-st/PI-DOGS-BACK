@@ -31,7 +31,7 @@ const getById = async (req, res, next) => {
             let idDbBreed = {
                 Imagen: idDbBreeds.name,
                 Nombre: idDbBreeds.name,
-                Temperamento: idDbBreeds.temperaments.map(e => e.temperament),
+                Temperamento: idDbBreeds.temperaments.map(e => e.name + ', '),
                 Altura: idDbBreeds.height,
                 Peso: idDbBreeds.weight,
                 Años: idDbBreeds.life_span
@@ -96,7 +96,7 @@ const getBreeds = async (req, res, next) => {
                     }
                 ]
             });
-            console.log('--------breedsDb--------', breedsDB)
+            // console.log('--------breedsDb--------', breedsDB)
 
 
             let formatBreedDB = await breedsDB.map(e => (
@@ -104,10 +104,10 @@ const getBreeds = async (req, res, next) => {
                     ID: e.ID,
                     Imagen: e.name,
                     Nombre: e.name,
-                    Temperamento: e.temperaments.join(),
-                    Altura: e.height,
+                    Temperamento: e.temperaments.map(e => e.name + ', '),
+                    // Altura: e.height,
                     Peso: e.weight,
-                    Años: e.life_span,
+                    // Años: e.life_span,
                     createdInDb: e.createdInDb
                 }
             ));
@@ -115,7 +115,7 @@ const getBreeds = async (req, res, next) => {
 
             let allBreeds = breedsApi.concat(formatBreedDB)
 
-            console.log('--------formatBreedDb--------', formatBreedDB)
+            // console.log('--------formatBreedDb--------', formatBreedDB)
 
             res.json(allBreeds)
             // res.json(breedsApi)
@@ -179,13 +179,13 @@ const createBreed = async (req, res) => {
                 life_span_max
             });
 
-            console.log(temperaments)
+            console.log('-----newBreed-----',newBreed)
 
-            const promesa = temperaments?.map(temperament => {
+            const promesa = temperaments?.map(temp => {
                 return new Promise(async (resolve, reject) => {
                     let temperamentoBuscado = await Temperament.findOne({
                         where: {
-                            name: temperament.temperament
+                            name: temp
                         }
                     })
                     resolve(
@@ -194,6 +194,8 @@ const createBreed = async (req, res) => {
                     reject(err => next(err))
                 })
             })
+            console.log('-----promesa-----',promesa)
+
 
             await Promise.all(promesa)
             let breedRes = await Breed.findOne({
@@ -210,6 +212,9 @@ const createBreed = async (req, res) => {
                     }
                 ]
             })
+
+            console.log('-----breedRes-----',breedRes)
+
             res.status(201).json(breedRes)
             // res.status(201).json(newBreed)
 

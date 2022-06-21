@@ -49,10 +49,12 @@ module.exports = (sequelize) => {
             }
         },
         life_span_min: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.FLOAT,
+            allowNull: false,
         },
         life_span_max: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.FLOAT,
+            allowNull: false,
         },
         life_span: {
             type: DataTypes.VIRTUAL,
