@@ -44,7 +44,6 @@ const getById = async (req, res, next) => {
             } else {
                 res.send('No existe raza para el Id ingresado')
             }
-            // let breedByIdDb = idDbBreed.filter((obj) => { if (obj.ID == id) return true });
             // console.log('--------breedByIdDb--------', breedByIdDb)
         } else {
             let breedById = (await axios(`${GET_BREEDS}`)).data.map(e => ({ ID: e.id, Imagen: e.image.url, Nombre: e.name, Temperamento: e.temperament, Altura: e.height.metric, Peso: e.weight.metric, Años: e.life_span }));
@@ -60,18 +59,6 @@ const getById = async (req, res, next) => {
                 res.send('No existe raza para el Id ingresado')
             }
         }
-
-
-
-        // let IDBreed = idBreed.concat(idDbBreed);
-
-        // let BreedId = IDBreed[0]
-        // console.log('--------breedByIdDb--------', BreedId)
-
-        // if (IDBreed.length === 0) { res.json({ msg: "No existe raza para el Id ingresado" }) }
-
-        // res.json(BreedId)
-
     } catch (error) {
         next(error)
     }
@@ -105,7 +92,7 @@ const getBreeds = async (req, res, next) => {
                     ID: e.ID,
                     Imagen: e.name,
                     Nombre: e.name,
-                    Temperamento: e.temperaments.map(e => e.name + ', '),
+                    Temperamento: e.temperaments.map(e => e.name + ', ' ), //+ ', '
                     // Altura: e.height,
                     Peso: e.weight,
                     // Años: e.life_span,
@@ -138,8 +125,6 @@ const getBreeds = async (req, res, next) => {
             // console.log('--------nameDbBreeds--------', nameDbBreed)
 
             let nameBreed = [...nameApiBreed, ...nameDbBreed];
-
-            // if (nameBreed.length === 0) { res.status(404).send("La raza que intentas buscar no existe") }
 
             res.json(nameBreed)
             console.log('--------nameBreed--------', nameBreed)
@@ -217,7 +202,6 @@ const createBreed = async (req, res) => {
             console.log('-----breedRes-----',breedRes)
 
             res.status(201).json(breedRes)
-            // res.status(201).json(newBreed)
 
         }
     } catch (error) {
