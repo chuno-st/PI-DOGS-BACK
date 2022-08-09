@@ -91,7 +91,11 @@ function reducer(state = initialState, { type, payload }) {
                 breeds: sortedBreeds
             }
         case ORDER_BY_WEIGHT:
-            let sortedByWeight = payload === 'menor' ? state.allBreeds.sort((a,b)=>(a.Peso && Math.max(...a.Peso.split(' - ').map(Number)) === isNaN ? 0 : Math.max(...a.Peso.split(' - ').map(Number))) - (b.Peso && Math.max(...b.Peso.split(' - ').map(Number)) === isNaN ? 0 : Math.max(...b.Peso.split(' - ').map(Number)))) : state.allBreeds.sort((a,b)=>(b.Peso && Math.max(...b.Peso.split(' - ').map(Number)) === isNaN ? 0 : Math.max(...b.Peso.split(' - ').map(Number))) - (a.Peso && Math.max(...a.Peso.split(' - ').map(Number)) === isNaN ? 0 : Math.max(...a.Peso.split(' - ').map(Number))))
+            let sortedByWeight = payload === 'menor'
+                ?
+                state.allBreeds.sort((a, b) => (a.Peso && Math.max(...a.Peso.split(' - ').map(Number)) === isNaN ? 0 : Math.max(...a.Peso.split(' - ').map(Number))) - (b.Peso && Math.max(...b.Peso.split(' - ').map(Number)) === isNaN ? 0 : Math.max(...b.Peso.split(' - ').map(Number))))
+                :
+                state.allBreeds.sort((a, b) => (b.Peso && Math.max(...b.Peso.split(' - ').map(Number)) === isNaN ? 0 : Math.max(...b.Peso.split(' - ').map(Number))) - (a.Peso && Math.max(...a.Peso.split(' - ').map(Number)) === isNaN ? 0 : Math.max(...a.Peso.split(' - ').map(Number))))
             // let sortedByWeight = payload === 'mayor' ? state.allBreeds.sort(function (a, b) {
             //     if ((a.Peso && Math.max(...a.Peso.split(' - ').map(Number)) === isNaN ? 0 : Math.max(...a.Peso.split(' - ').map(Number))) > (b.Peso && Math.max(...b.Peso.split(' - ').map(Number)) === isNaN ? 0 : Math.max(...b.Peso.split(' - ').map(Number))) ) {
             //         return -1;

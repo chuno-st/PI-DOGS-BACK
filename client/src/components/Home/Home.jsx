@@ -106,6 +106,8 @@ function Home() {
                                             <h3 >Raza:  {e.Nombre}</h3>
                                             <p >Temperamento/s:  {e.Temperamento}</p>
                                             <p >Peso:  {e.Peso} kilos</p>
+                                            <p >Origen:  {e.Origen} </p>
+
                                         </div>
                                     </figure>
                                 </Link>

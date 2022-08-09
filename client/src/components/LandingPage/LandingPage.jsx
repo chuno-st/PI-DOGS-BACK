@@ -5,7 +5,7 @@ import s from '../LandingPage/landingPage.module.css';
 
 function LandingPage() {
   return (
-    <div className={`${s.background}`}>
+    <div className={s.background}>
       <h1>deperros.com</h1>
       <div>
       <Link to='/home'><button className={s.button}>INGRESAR</button></Link>

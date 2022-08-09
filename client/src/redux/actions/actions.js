@@ -3,7 +3,7 @@ import { CLEAR_PAGE, DEL_FAV, FILTER_BY_CREATED, FILTER_BY_TEMPERAMENT, GET_BREE
 
 export function createBreed(payload) {
     return async function (dispatch) {
-        const response = await axios.post(`http://localhost:3001/dog`, payload);
+        const response = await axios.post(`https://pi-dogs.up.railway.app/dog`, payload);
         console.log(response)
         return response;
     }
@@ -11,14 +11,14 @@ export function createBreed(payload) {
 
 export function getBreeds() {
     return (dispatch) => {
-        return axios("http://localhost:3001/dogs/")
+        return axios("https://pi-dogs.up.railway.app/dogs/")
             .then(res => dispatch({ type: GET_BREEDS, payload: res.data }))
     }
 };
 
 export function getBreedDetail(id) {
     return (dispatch) => {
-        return axios(`http://localhost:3001/dogs/${id}`)
+        return axios(`https://pi-dogs.up.railway.app/dogs/${id}`)
             .then(res => dispatch({ type: GET_BREED_DETAIL, payload: res.data }))
     }
     // return (dispatch) => {
@@ -35,7 +35,7 @@ export function clearPage() {
 
 export function searchBreed(name) {
     return function (dispatch) {
-        return axios(`http://localhost:3001/dogs/?name=${name}`)
+        return axios(`https://pi-dogs.up.railway.app/dogs/?name=${name}`)
             .then(res => dispatch({ type: SEARCH_BREED, payload: res.data }))
     }
 };
@@ -56,7 +56,7 @@ export function delFav(payload) {
 
 export function getTemperament() {
     return function (dispatch) {
-        return axios(`http://localhost:3001/temperament`)
+        return axios(`https://pi-dogs.up.railway.app/temperament`)
             .then(res => dispatch({ type: GET_TEMPERAMENT, payload: res.data }))
     }
 };

@@ -25,7 +25,6 @@ function App() {
       <Route path='/dogs/:id' component={Footer} />
       <Route path='/create/breed' component={NavBar} />
       <Route path='/create/breed' component={CreateBreed} />
-      <Route path='/create/breed' component={Footer} />
     </div>
   );
 }
