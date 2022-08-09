@@ -71,7 +71,7 @@ const getBreeds = async (req, res, next) => {
 
     if (!name) {
         try {
-            let breedsApi = (await axios(`${GET_BREEDS}`)).data.map(e => ({ ID: e.id, Imagen: e.image, Nombre: e.name, Temperamento: e.temperament, Peso: e.weight.metric }))
+            let breedsApi = (await axios(`${GET_BREEDS}`)).data.map(e => ({ ID: e.id, Imagen: e.image, Nombre: e.name, Temperamento: e.temperament, Peso: e.weight.metric, Origen: e.origin }))
 
             let breedsDB = await Breed.findAll({
                 include: [
@@ -84,7 +84,7 @@ const getBreeds = async (req, res, next) => {
                     }
                 ]
             });
-            // console.log('--------breedsDb--------', breedsDB)
+            console.log('--------breedsDb--------', breedsDB)
 
 
             let formatBreedDB = await breedsDB.map(e => (
@@ -103,7 +103,7 @@ const getBreeds = async (req, res, next) => {
 
             let allBreeds = breedsApi.concat(formatBreedDB)
 
-            // console.log('--------formatBreedDb--------', formatBreedDB)
+            console.log('--------formatBreedDb--------', formatBreedDB)
 
             res.json(allBreeds)
             // res.json(breedsApi)
