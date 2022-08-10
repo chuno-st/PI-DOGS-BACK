@@ -17,7 +17,7 @@
 //     =====`-.____`.___ \_____/___.-`___.-'=====
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const PORT = process.env.PORT || 9000;
+const PORT = process.env.PORT || 9000
 const server = require('./src/app.js');
 const { getAllTemperaments } = require('./src/controllers/temperamentControllers.js');
 const { conn } = require('./src/db.js');
